@@ -1,34 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-infra-user-deployment
+  name: {{ .Release.Name }}
 spec:
-  replicas: 2
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: demo-infra-user
-      tier: backend
+      app: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: demo-infra-user
-        tier: backend  
+        app: {{ .Release.Name }}
     spec:
       containers:
-        - name: demo-infra-user
-          image: demo-infra-user
-          imagePullPolicy: Never
+        - name: {{ .Release.name }}
+          image: "{{ .Values.image.registry }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.service.port }}
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: "docker"
+              value: {{ .Values.env.SPRING_PROFILES_ACTIVE | quote }}
             - name: SERVER_ADDRESS
               value: "0.0.0.0"
           resources:
             requests:
-              cpu: "250m"
-              memory: "512Mi"
+              cpu: "{{ .Values.requests.cpu }}"
+              memory: "{{ .Values.requests.memory }}"
             limits:
-              cpu: "500m"
-              memory: "1Gi"
+              cpu: "{{ .Values.limits.cpu }}"
+              memory: "{{ .Values.limits.memory }}"
