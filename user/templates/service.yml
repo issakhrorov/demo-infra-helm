@@ -1,13 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata: 
-  name: demo-infra-user-service
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
 spec:
+  type: {{ .Values.service.type }}
   selector:
-    app: demo-infra-user
+    app: {{ .Release.Name }}
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 8080
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}
       nodePort: 30080
   type: NodePort
