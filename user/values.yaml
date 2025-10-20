@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: issakhrorov/demo-infra
-  tag: "user-service-"
+  tag: "user-service-user-service-a08b047"
   pullPolicy: IfNotPresent
 service:
   type: ClusterIp
