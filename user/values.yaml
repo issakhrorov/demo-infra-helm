@@ -1,8 +1,7 @@
 replicaCount: 2
-
-image: 
+image:
   repository: issakhrorov/demo-infra
-  tag: "user-service-41577f6"
+  tag: "user-service-27ddecd"
   pullPolicy: IfNotPresent
 service:
   type: ClusterIp
@@ -22,11 +21,9 @@ env:
   KAFKA_BOOTSTRAP_SERVERS: "192.168.0.149:29091,192.168.0.149:29092,192.168.0.149:29093"
   PRODUCER_SCHEMA_REGISTRY_HOST: "http://192.168.0.149:9011"
   CONSUMER_SCHEMA_REGISTRY_HOST: "http://192.168.0.149:9011"
-
 secrets:
   pg_username: "issakhrorov"
   pg_password: "1111"
-
 livenessProbe:
   path: /actuator/health/liveness
   port: 8080
