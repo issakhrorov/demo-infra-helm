@@ -13,8 +13,8 @@ spec:
         app: {{ .Release.Name }}
     spec:
       containers:
-        - name: {{ .Release.name }}
-          image: "{{ .Values.image.registry }}:{{ .Values.image.tag }}"
+        - name: {{ .Release.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.port }}
@@ -26,8 +26,8 @@ spec:
 
           resources:
             requests:
-              cpu: "{{ .Values.requests.cpu }}"
-              memory: "{{ .Values.requests.memory }}"
+              cpu: "{{ .Values.resources.requests.cpu }}"
+              memory: "{{ .Values.resources.requests.memory }}"
             limits:
-              cpu: "{{ .Values.limits.cpu }}"
-              memory: "{{ .Values.limits.memory }}"
+              cpu: "{{ .Values.resources.limits.cpu }}"
+              memory: "{{ .Values.resources.limits.memory }}"

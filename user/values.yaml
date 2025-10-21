@@ -2,21 +2,18 @@ replicaCount: 2
 
 image: 
   repository: issakhrorov/demo-infra
-  tag: "user-service-1.0.0"
+  tag: "user-service-41577f6"
   pullPolicy: IfNotPresent
-
 service:
   type: ClusterIp
   port: 8080
-
-resources: 
+resources:
   limits:
     cpu: 500m
     memory: 512Mi
   requests:
     cpu: 200m
     memory: 256Mi
-
 env:
   SPRING_PROFILES_ACTIVE: "docker"
   POSTGRES_HOST: postgres
@@ -36,4 +33,3 @@ livenessProbe:
 readinessProbe:
   path: /actuator/health/readiness
   port: 8080
-  
