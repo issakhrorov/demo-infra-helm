@@ -4,10 +4,6 @@ metadata:
   name: {{ .Release.Name }}-config
   namespace: {{ .Release.Namespace }}
 data:
-  SPRING_PROFILES_ACTIVE: {{ .Values.env.SPRING_PROFILES_ACTIVE | quote }}
-  POSTGRES_HOST: {{ .Values.env.POSTGRES_HOST | quote }}
-  POSTGRES_PORT: {{ .Values.env.POSTGRES_PORT | quote }}
-  DB_NAME: {{ .Values.env.DB_NAME | quote }}
-  KAFKA_BOOTSTRAP_SERVERS: {{ .Values.env.KAFKA_BOOTSTRAP_SERVERS | quote }}
-  PRODUCER_SCHEMA_REGISTRY_HOST: {{ .Values.env.PRODUCER_SCHEMA_REGISTRY_HOST | quote }}
-  CONSUMER_SCHEMA_REGISTRY_HOST: {{ .Values.env.CONSUMER_SCHEMA_REGISTRY_HOST | quote }}
+{{- range $key, $value := .Values.env }}
+  {{ $key }}: {{ $value | quote }}
+{{- end }}
