@@ -18,11 +18,12 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.port }}
-          env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: {{ .Values.env.SPRING_PROFILES_ACTIVE | quote }}
-            - name: SERVER_ADDRESS
-              value: "0.0.0.0"
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-config
+            - secretRef:
+                name: {{ .Release.Name }}-secret
+
           resources:
             requests:
               cpu: "{{ .Values.requests.cpu }}"

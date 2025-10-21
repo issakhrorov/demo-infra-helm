@@ -1,4 +1,4 @@
-replicaCount: 1
+replicaCount: 2
 
 image: 
   repository: issakhrorov/demo-infra
@@ -19,9 +19,16 @@ resources:
 
 env:
   SPRING_PROFILES_ACTIVE: "docker"
-  SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/demo-infra-user"
-  SPRING_DATASOURCE_USERNAME: "issakhrorov"
-  SPRING_DATASOURCE_PASSWORD: "1111"
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: 5432
+  DB_NAME: demo_infra_user
+  KAFKA_BOOTSTRAP_SERVERS: "192.168.0.149:29091,192.168.0.149:29092,192.168.0.149:29093"
+  PRODUCER_SCHEMA_REGISTRY_HOST: "http://192.168.0.149:9011"
+  CONSUMER_SCHEMA_REGISTRY_HOST: "http://192.168.0.149:9011"
+
+secrets:
+  pg_username: "issakhrorov"
+  pg_password: "1111"
 
 livenessProbe:
   path: /actuator/health/liveness
